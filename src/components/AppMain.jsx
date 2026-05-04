@@ -1,19 +1,24 @@
+import { useState } from 'react'
 import languages from '../data/languages'
+import AccordionItem from './AccordionItem'
 export default function AppMain() {
 
+    const [activeDescription, setActiveDscriptio] = useState([])
+    function toggleDescription(id) {
+
+        if (activeDescription === id) {
+            return setActiveDscriptio(null)
+        }
+        setActiveDscriptio(id)
+    }
+
     return (
+
         <>
 
             {
                 languages.map(language => (
-                    <div className="card" key={language.id}>
-                        <div className="card-body">
-                            <button>{language.title}</button>
-                            <div className="content">
-                                {language.description}
-                            </div>
-                        </div>
-                    </div>
+                    <AccordionItem language={language} activeDescription={activeDescription} onToggle={() => toggleDescription(language.id)} key={language.id} />
 
                 ))
             }
